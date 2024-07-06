@@ -1,4 +1,4 @@
-const yearSelect = document.getElementById("year_options");
+const yearSelect = document.getElementById("year_options");  //making year selection limit from 1995 to 2050
 yearSelect.innerHTML = ''; 
 for (let i = 1995; i < 2050; i++) {
     const option = document.createElement("option");
@@ -7,7 +7,8 @@ for (let i = 1995; i < 2050; i++) {
     yearSelect.appendChild(option); 
 }  
 
-const fetchPublicHolidays = () => {
+//this function gets called once user chooses country and year and clicks on submit button
+const fetchPublicHolidays = () => {  //taking necessary elements from html structure
     const year = document.getElementById("year_options").value;
     const country = document.getElementById("country_options").value;
     const names = document.getElementById("holiday_names");
@@ -15,16 +16,16 @@ const fetchPublicHolidays = () => {
     const tableContainer = document.getElementById("holiday_table");
     console.log(year);
     console.log(country);
-    const url = `https://date.nager.at/api/v3/publicholidays/${year}/${country}`;
+    const url = `https://date.nager.at/api/v3/publicholidays/${year}/${country}`; //fetching api based on required data which user inputs like name of country and year
     fetch(url)
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.json()) //converting the response from api to json 
+        .then(data => { //once response received, then getting the data and performing operations on it
             console.log(data);
             tableContainer.innerHTML = '';
             names.innerText = '';
             dates.innerText = '';
 
-            const table = document.createElement('table');
+            const table = document.createElement('table'); //creating a table-structure to put the data
             table.className = "table";
             const header = table.insertRow();
             const Headerdate = header.insertCell();
@@ -44,5 +45,5 @@ const fetchPublicHolidays = () => {
 
             tableContainer.appendChild(table);
         })
-        .catch(error => console.error(error));
+        .catch(error => console.error(error));  //printing errors in the console
 };
